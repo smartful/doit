@@ -1,9 +1,11 @@
 import React from 'react';
 
-function Contact(props) {
+function Contact({ firstName, lastName, tel, email }) {
   return (
     <div>
-      <h3>Bob PAGE</h3>
+      <h3>{firstName} {lastName.toUpperCase()}</h3>
+      <p>Tel : {tel}</p>
+      <p>E-mail : {email}</p>
     </div>
   );
 }

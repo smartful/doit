@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GlobalContext } from '../context/GlobalState';
 import Contact from './Contact';
 
-function ContactList(props) {
+function ContactList() {
+  const { contacts } = useContext(GlobalContext);
+
   return (
     <div>
-      <Contact />
-      <Contact />
-      <Contact />
-      <Contact />
+      {contacts.map(contact => (
+        <Contact
+          firstName={contact.firstName}
+          lastName={contact.lastName}
+          tel={contact.tel}
+          email={contact.email}
+        />
+      ))}
     </div>
   );
 }

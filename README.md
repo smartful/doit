@@ -1,6 +1,13 @@
-# Getting Started with Create React App
+# DO it
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Application de productivité permettant de gérer ses tâches.
+
+## Features
+
+- Sous-tâches
+- Gestion du temps
+- Bloc d'informations complémentaires aux tâches
+- Gestion des contacts
 
 ## Available Scripts
 

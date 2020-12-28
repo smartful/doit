@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 import Task from './Task';
+import AddTask from './AddTask';
 
 const TaskList = () => {
   const { tasks } = useContext(GlobalContext);
@@ -9,10 +10,12 @@ const TaskList = () => {
     <div>
       {tasks.map(task => (
         <Task
+          key={task.id}
           name={task.name}
           completed={task.completed}
         />
       ))}
+      <AddTask visible={false} />
     </div>
   );
 };

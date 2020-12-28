@@ -9,6 +9,7 @@ function ContactList() {
     <div>
       {contacts.map(contact => (
         <Contact
+          key={contact.id}
           firstName={contact.firstName}
           lastName={contact.lastName}
           tel={contact.tel}

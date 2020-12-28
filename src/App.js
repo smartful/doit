@@ -3,6 +3,7 @@ import Home from './components/Home';
 import TaskList from './components/TaskList';
 import ContactList from './components/ContactList';
 import Profile from './components/Profile';
+import TaskPanel from './components/TaskPanel';
 import './App.css';
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
       <nav>
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/task">Tasks</Link></li>
+          <li><Link to="/tasks">Tasks</Link></li>
           <li><Link to="/contact">Contacts</Link></li>
           <li><Link to="/profile">Profiles</Link></li>
         </ul>
@@ -21,8 +22,11 @@ function App() {
           <Route exact path='/'>
             <Home />
           </Route>
-          <Route path='/task'>
+          <Route path='/tasks'>
             <TaskList />
+          </Route>
+          <Route path='/task/:id'>
+            <TaskPanel />
           </Route>
           <Route path='/contact'>
             <ContactList />

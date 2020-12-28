@@ -11,9 +11,10 @@ const initialState = {
     {
       id: 2,
       name: 'Ranger ma chambre',
-      completed: false
+      completed: true
     },
   ],
+  currentTask: {},
   contacts: [
     {
       id: 1,
@@ -37,6 +38,13 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
+  const getCurrentTask = (id) => {
+    dispatch({
+      type: 'GET_CURRENT_TASK',
+      payload: id,
+    });
+  }
+
   const addTask = (task) => {
     dispatch({
       type: 'ADD_TASK',
@@ -46,7 +54,7 @@ export const GlobalProvider = ({ children }) => {
 
   const deleteTask = (id) => {
     dispatch({
-      type: 'ADD_TASK',
+      type: 'DELETE_TASK',
       payload: id,
     });
   }
@@ -56,6 +64,8 @@ export const GlobalProvider = ({ children }) => {
       tasks: state.tasks,
       addTask,
       deleteTask,
+      currentTask: state.currentTask,
+      getCurrentTask,
       contacts: state.contacts,
     }}>
       {children}

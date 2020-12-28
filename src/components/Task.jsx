@@ -1,10 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { GlobalContext } from '../context/GlobalState';
 
-function Task({ name, completed }) {
+function Task({ id, name }) {
+  const { deleteTask } = useContext(GlobalContext);
+
+  const taskStyle = {
+    width: '25vw',
+    height: '15%',
+    padding: '10px',
+    margin: '5px',
+    border: '6px solid black',
+    borderRadius: '8px',
+  };
+
+  const closeButtonStyle = {
+    cursor: 'pointer',
+    backgroundColor: 'red',
+    color: 'white',
+    fontSize: '10px',
+    padding: '3px',
+    border: '0',
+  };
+
+  const linkStyle = {
+    textDecoration: 'none',
+    color: 'black',
+  }
+
+  const taskLink = `/task/${id}`;
+
   return (
-    <div>
-      <h3>{name}</h3>
-      <p>Réalisé : {completed ? 'Oui': 'Non'}</p>
+    <div style={taskStyle}>
+      <h3><Link to={taskLink} style={linkStyle}>{name}</Link></h3>
+      <button onClick={() => deleteTask(id)} style={closeButtonStyle}>Supprimer</button>
     </div>
   );
 }

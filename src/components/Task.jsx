@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { GlobalContext } from '../context/GlobalState';
+import { TaskContext } from '../context/TaskState';
 
 function Task({ id, name }) {
-  const { deleteTask } = useContext(GlobalContext);
+  const { deleteTask } = useContext(TaskContext);
 
   const taskStyle = {
     width: '25vw',
@@ -26,6 +26,7 @@ function Task({ id, name }) {
   const linkStyle = {
     textDecoration: 'none',
     color: 'black',
+    cursor: 'pointer',
   }
 
   const taskLink = `/task/${id}`;

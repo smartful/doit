@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { GlobalProvider } from './context/GlobalState';
+import { TaskProvider } from './context/TaskState';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ContactProvider } from './context/ContactState';
 
 ReactDOM.render(
-  <GlobalProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </GlobalProvider>,
+  <TaskProvider>
+    <ContactProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ContactProvider>
+  </TaskProvider>,
   document.getElementById('root')
 );
 

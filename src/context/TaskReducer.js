@@ -1,4 +1,4 @@
-const AppReducer = (state, action) => {
+const TaskReducer = (state, action) => {
   switch(action.type) {
     case 'GET_CURRENT_TASK':
       return {
@@ -15,9 +15,14 @@ const AppReducer = (state, action) => {
         ...state,
         tasks: state.tasks.filter(task => task.id !== action.payload),
       };
+    // case 'ADD_SUBTASK':
+    //   return {
+    //     ...state,
+    //     currentTask: [...state.currentTask.subtasks, action.payload],
+    //   }
     default:
       return state;
   }
 }
 
-export default AppReducer;
+export default TaskReducer;

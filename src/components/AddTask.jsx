@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { GlobalContext } from '../context/GlobalState';
+import { TaskContext } from '../context/TaskState';
 
 function AddTask() {
   const [isVisible, setIsVisible] = useState(false);
   const [name, setName] = useState('');
-  const { addTask } = useContext(GlobalContext);
+  const { addTask } = useContext(TaskContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,7 +12,6 @@ function AddTask() {
     const newTask = {
       id: Date.now(),
       name,
-      completed: false,
     };
     addTask(newTask);
     setIsVisible(false);

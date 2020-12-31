@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { GlobalContext } from '../context/GlobalState';
+import { TaskContext } from '../context/TaskState';
 import Task from './Task';
 import AddTask from './AddTask';
 
 const TaskList = () => {
-  const { tasks } = useContext(GlobalContext);
+  const { tasks } = useContext(TaskContext);
   const taskStyle = {
     display: 'flex',
     flexDirection: 'row',

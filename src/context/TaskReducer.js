@@ -1,4 +1,6 @@
 const TaskReducer = (state, action) => {
+  const tasks = [...state.tasks];
+
   switch(action.type) {
     case 'GET_CURRENT_TASK':
       return {
@@ -16,10 +18,19 @@ const TaskReducer = (state, action) => {
         tasks: state.tasks.filter(task => task.id !== action.payload),
       };
     case 'ADD_SUBTASK':
-      const subtask = action.payload;
-      let tasks = state.tasks;
-      const taskIndex = state.tasks.findIndex(task => task.id === parseInt(subtask.task_id));
+      let subtask = action.payload;
+      let taskIndex = tasks.findIndex(task => task.id === parseInt(subtask.task_id));
       tasks[taskIndex].subtasks.push(subtask);
+      return {
+        ...state,
+        tasks: tasks,
+      }
+    case 'TOOGLE_SUBTASK':
+      let currentSubtask = action.payload;
+      currentSubtask.completed = !currentSubtask.completed;
+      let currentTaskIndex = tasks.findIndex(task => task.id === parseInt(currentSubtask.task_id));
+      let currentSubtaskIndex = tasks[currentTaskIndex].subtasks.findIndex(element => element.id === currentSubtask.id);
+      tasks[currentTaskIndex].subtasks[currentSubtaskIndex] = currentSubtask;
       return {
         ...state,
         tasks: tasks,

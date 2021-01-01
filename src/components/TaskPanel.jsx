@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { TaskContext } from '../context/TaskState';
+import SubTask from './Subtask';
 
 function TaskPanel() {
   const [newSubtaskName, setNewSubtaskName] = useState('');
@@ -38,12 +39,7 @@ function TaskPanel() {
       <h4>Sous tâches</h4>
       <ul>
         {subtasks &&
-          subtasks.map(subtask => {
-            const subtaskStyle = {
-              textDecoration: subtask.completed ? 'line-through red' : 'none',
-            };
-            return <li key={subtask.id} style={subtaskStyle}>{subtask.name}</li>
-          })
+          subtasks.map(subtask => <SubTask key={subtask.id} subtask={subtask} />)
         }
       </ul>
       <input type='text' value={newSubtaskName} onChange={(e) => setNewSubtaskName(e.target.value)} />

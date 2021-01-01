@@ -82,6 +82,13 @@ export const TaskProvider = ({ children }) => {
     });
   }
 
+  const toogleSubtask = (subtask) => {
+    dispatch({
+      type: 'TOOGLE_SUBTASK',
+      payload: subtask
+    });
+  }
+
   return (
     <TaskContext.Provider value={{
       tasks: state.tasks,
@@ -90,6 +97,7 @@ export const TaskProvider = ({ children }) => {
       currentTask: state.currentTask,
       getCurrentTask,
       addSubtask,
+      toogleSubtask,
     }}>
       {children}
     </TaskContext.Provider>

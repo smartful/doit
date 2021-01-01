@@ -9,16 +9,19 @@ const initialState = {
       subtasks: [
         {
           id: 1,
+          task_id: 1,
           name: 'Exos de trigo',
           completed: false,
         },
         {
           id: 2,
+          task_id: 1,
           name: 'Rédaction en français',
           completed: false,
         },
         {
           id: 3,
+          task_id: 1,
           name: 'Dessiner le boule de la prod d\'espagnol',
           completed: true,
         },
@@ -30,11 +33,13 @@ const initialState = {
       subtasks: [
         {
           id: 4,
+          task_id: 2,
           name: 'Ranger mes BD',
           completed: true,
         },
         {
           id: 5,
+          task_id: 2,
           name: 'Ranger le reste',
           completed: false,
         },
@@ -70,12 +75,12 @@ export const TaskProvider = ({ children }) => {
     });
   }
 
-  // const addSubtask = (subtask) => {
-  //   dispatch({
-  //     type: 'ADD_SUBTASK',
-  //     payload: subtask,
-  //   });
-  // }
+  const addSubtask = (subtask) => {
+    dispatch({
+      type: 'ADD_SUBTASK',
+      payload: subtask,
+    });
+  }
 
   return (
     <TaskContext.Provider value={{
@@ -84,6 +89,7 @@ export const TaskProvider = ({ children }) => {
       deleteTask,
       currentTask: state.currentTask,
       getCurrentTask,
+      addSubtask,
     }}>
       {children}
     </TaskContext.Provider>

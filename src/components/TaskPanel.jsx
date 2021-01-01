@@ -4,7 +4,7 @@ import { TaskContext } from '../context/TaskState';
 
 function TaskPanel() {
   const [newSubtaskName, setNewSubtaskName] = useState('');
-  const { getCurrentTask, currentTask } = useContext(TaskContext);
+  const { getCurrentTask, currentTask, addSubtask } = useContext(TaskContext);
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,16 +20,17 @@ function TaskPanel() {
     borderRadius: '8px',
   }
 
-  // const addNewSubtask = (e) => {
-  //   e.preventDefault();
+  const addNewSubtask = (e) => {
+    e.preventDefault();
 
-  //   const newSubtask = {
-  //     id: Date.now(),
-  //     name: newSubtaskName,
-  //     completed: false,
-  //   }
-  //   addSubtask(newSubtask);
-  // }
+    const newSubtask = {
+      id: Date.now(),
+      task_id: id,
+      name: newSubtaskName,
+      completed: false,
+    };
+    addSubtask(newSubtask);
+  }
 
   return (
     <div style={panelStyle}>
@@ -46,7 +47,7 @@ function TaskPanel() {
         }
       </ul>
       <input type='text' value={newSubtaskName} onChange={(e) => setNewSubtaskName(e.target.value)} />
-      <button >+</button>
+      <button onClick={addNewSubtask}>+</button>
 
       <h4>Informations complémentaires</h4>
       <p>bla bla bla</p>

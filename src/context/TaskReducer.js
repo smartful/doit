@@ -15,11 +15,15 @@ const TaskReducer = (state, action) => {
         ...state,
         tasks: state.tasks.filter(task => task.id !== action.payload),
       };
-    // case 'ADD_SUBTASK':
-    //   return {
-    //     ...state,
-    //     currentTask: [...state.currentTask.subtasks, action.payload],
-    //   }
+    case 'ADD_SUBTASK':
+      const subtask = action.payload;
+      let tasks = state.tasks;
+      const taskIndex = state.tasks.findIndex(task => task.id === parseInt(subtask.task_id));
+      tasks[taskIndex].subtasks.push(subtask);
+      return {
+        ...state,
+        tasks: tasks,
+      }
     default:
       return state;
   }

@@ -12,6 +12,7 @@ function AddTask() {
     const newTask = {
       id: Date.now(),
       name,
+      subtasks: [],
     };
     addTask(newTask);
     setIsVisible(false);

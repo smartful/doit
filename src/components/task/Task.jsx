@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { TaskContext } from '../context/TaskState';
+import { TaskContext } from '../../context/TaskState';
 
 function Task({ id, name }) {
   const { deleteTask } = useContext(TaskContext);

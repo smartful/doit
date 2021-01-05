@@ -4,8 +4,6 @@ import { ContactContext } from '../context/ContactState';
 
 function ContactPanel() {
   const { getCurrentContact, currentContact } = useContext(ContactContext);
-  console.log('ContactContext : ', ContactContext);
-  console.log('getCurrentContact : ', getCurrentContact);
   const { id } = useParams();
 
   useEffect(() => {

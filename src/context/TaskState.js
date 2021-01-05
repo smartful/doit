@@ -75,6 +75,13 @@ export const TaskProvider = ({ children }) => {
     });
   }
 
+  const modifyTaskName = (id, newName) => {
+    dispatch({
+      type: 'MODIFY_TASK_NAME',
+      payload: {id, newName},
+    });
+  }
+
   const addSubtask = (subtask) => {
     dispatch({
       type: 'ADD_SUBTASK',
@@ -96,6 +103,7 @@ export const TaskProvider = ({ children }) => {
       deleteTask,
       currentTask: state.currentTask,
       getCurrentTask,
+      modifyTaskName,
       addSubtask,
       toogleSubtask,
     }}>

@@ -17,6 +17,14 @@ const TaskReducer = (state, action) => {
         ...state,
         tasks: state.tasks.filter(task => task.id !== action.payload),
       };
+    case 'MODIFY_TASK_NAME':
+      const {id, newName} = action.payload;
+      let taskIdx = tasks.findIndex(task => task.id === parseInt(id));
+      tasks[taskIdx].name = newName; 
+      return {
+        ...state,
+        tasks: tasks,
+      }
     case 'ADD_SUBTASK':
       let subtask = action.payload;
       let taskIndex = tasks.findIndex(task => task.id === parseInt(subtask.task_id));

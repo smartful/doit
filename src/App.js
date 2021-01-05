@@ -1,9 +1,9 @@
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
-import TaskList from './components/TaskList';
+import TaskList from './components/task/TaskList';
 import ContactList from './components/ContactList';
 import Profile from './components/Profile';
-import TaskPanel from './components/TaskPanel';
+import TaskPanel from './components/task/TaskPanel';
 import ContactPanel from './components/ContactPanel';
 import './App.css';
 
@@ -11,14 +11,14 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/tasks">Tasks</Link></li>
-          <li><Link to="/contacts">Contacts</Link></li>
-          <li><Link to="/profile">Profiles</Link></li>
-        </ul>
-      </nav>
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/tasks">Tasks</Link></li>
+            <li><Link to="/contacts">Contacts</Link></li>
+            <li><Link to="/profile">Profiles</Link></li>
+          </ul>
+        </nav>
         <Switch>
           <Route exact path='/'>
             <Home />

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { TaskContext } from '../context/TaskState';
+import { TaskContext } from '../../context/TaskState';
 
 function Subtask({ subtask }) {
   const { toogleSubtask } = useContext(TaskContext);

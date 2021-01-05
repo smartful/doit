@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { TaskContext } from '../context/TaskState';
+import { TaskContext } from '../../context/TaskState';
 
 function AddTask() {
   const [isVisible, setIsVisible] = useState(false);

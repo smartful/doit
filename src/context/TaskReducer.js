@@ -43,6 +43,15 @@ const TaskReducer = (state, action) => {
         ...state,
         tasks: tasks,
       }
+    case 'DELETE_SUBTASK':
+      let subtaskToErase = action.payload;
+      let associatedTaskIndex = tasks.findIndex(task => task.id === parseInt(subtaskToErase.task_id));
+      let newSubtasks = tasks[associatedTaskIndex].subtasks.filter(subtask => subtask.id !== subtaskToErase.id);
+      tasks[associatedTaskIndex].subtasks = newSubtasks;
+      return {
+        ...state,
+        tasks: tasks,
+      }
     default:
       return state;
   }

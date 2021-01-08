@@ -96,6 +96,13 @@ export const TaskProvider = ({ children }) => {
     });
   }
 
+  const eraseSubtask = (subtask) => {
+    dispatch({
+      type: 'DELETE_SUBTASK',
+      payload: subtask
+    });
+  }
+
   return (
     <TaskContext.Provider value={{
       tasks: state.tasks,
@@ -106,6 +113,7 @@ export const TaskProvider = ({ children }) => {
       modifyTaskName,
       addSubtask,
       toogleSubtask,
+      eraseSubtask,
     }}>
       {children}
     </TaskContext.Provider>

@@ -95,8 +95,10 @@ function TaskPanel() {
           subtasks.map(subtask => <SubTask key={subtask.id} subtask={subtask} />)
         }
       </ul>
-      <input type='text' value={newSubtaskName} onChange={(e) => setNewSubtaskName(e.target.value)} />
-      <button onClick={addNewSubtask}>+</button>
+      <form onSubmit={addNewSubtask}>
+        <input type='text' value={newSubtaskName} onChange={(e) => setNewSubtaskName(e.target.value)} />
+        <button type='submit'>+</button>
+      </form>
 
       <h4>Informations complémentaires</h4>
       <p>bla bla bla</p>

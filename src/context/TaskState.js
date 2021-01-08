@@ -40,7 +40,7 @@ const initialState = {
         {
           id: 5,
           task_id: 2,
-          name: 'Ranger le reste',
+          name: 'Ranger mes DVD',
           completed: false,
         },
       ]

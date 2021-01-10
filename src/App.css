@@ -18,3 +18,7 @@ nav li {
   padding: 10px;
   border-right:1px solid #bbb;
 }
+
+nav li:last-child {
+  border-right: none;
+}

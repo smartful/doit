@@ -4,15 +4,12 @@ import { TaskProvider } from './context/TaskState';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ContactProvider } from './context/ContactState';
 
 ReactDOM.render(
   <TaskProvider>
-    <ContactProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </ContactProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </TaskProvider>,
   document.getElementById('root')
 );

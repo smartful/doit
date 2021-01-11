@@ -12,8 +12,10 @@ function TaskPanel() {
   useEffect(() => {
     getCurrentTask(id);
   }, [id]);
-  
+
   const subtasks = currentTask.subtasks;
+  const description = currentTask.description;
+
   const panelStyle = {
     textAlign: 'left',
     width: '60%',
@@ -101,13 +103,11 @@ function TaskPanel() {
       </form>
 
       <h4>Informations complémentaires</h4>
-      <p>bla bla bla</p>
-
-      <h4>Contact associées</h4>
-      <ul>
-        <li>aaaaaa AAAAAAAAA</li>
-        <li>bbbbbb BBBBBBBBB</li>
-      </ul>
+      {description &&
+        description.split("\n").map((infos, key) => {
+          return <p key={key}>{infos}</p>;
+        })
+      }
     </div>
   );
 }

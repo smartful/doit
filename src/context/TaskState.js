@@ -6,6 +6,7 @@ const initialState = {
     {
       id: 1,
       name: 'Faire mes devoirs',
+      description: 'Exos 5 à 9 de la page 46 pour la trigo\nRédactions sur l\'impact des différents styles narratifs\nlol ;-p',
       subtasks: [
         {
           id: 1,
@@ -30,6 +31,7 @@ const initialState = {
     {
       id: 2,
       name: 'Ranger ma chambre',
+      description: 'C\'est le dawa !!!\nIl faut ranger quoi !',
       subtasks: [
         {
           id: 4,

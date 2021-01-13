@@ -2,12 +2,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { TaskContext } from '../../context/TaskState';
 import SubTask from './Subtask';
+import TaskName from './TaskName';
+import TaskNameEdit from './TaskNameEdit';
 
 function TaskPanel() {
   const [newSubtaskName, setNewSubtaskName] = useState('');
   const [isEditName, setIsEditName] = useState(false);
   const [isEditDescription, setIsEditDescription] = useState(false);
-  const { getCurrentTask, currentTask, modifyTaskName, modifyTaskDescription, addSubtask } = useContext(TaskContext);
+  const { getCurrentTask, currentTask, modifyTaskDescription, addSubtask } = useContext(TaskContext);
   const { id } = useParams();
 
   useEffect(() => {
@@ -46,22 +48,6 @@ function TaskPanel() {
     addSubtask(newSubtask);
   }
 
-  const TaskName = ({name}) => {
-    const labelStyle = {
-      fontSize: '1.8rem',
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-    };
-
-    return (
-      <div style={labelStyle}>
-        {name}
-        <button onClick={() => setIsEditName(true)} style={editButtonStyle}>edit</button>
-      </div>
-    );
-  }
-
   const TaskDescription = ({ description }) => {
     return (
       <div>
@@ -73,32 +59,6 @@ function TaskPanel() {
         <button onClick={() => setIsEditDescription(true)} style={editButtonStyle}>edit</button>
       </div>
     )
-  }
-
-  function TaskNameEdit({currentName}) {
-    const [taskName, setTaskName] = useState(currentName);
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();;
-      modifyTaskName(currentTask.id, taskName);
-      setIsEditName(false);
-    }
-  
-    const submitButtonStyle = {
-      cursor: 'pointer',
-      backgroundColor: '#4BA419',
-      color: 'white',
-      fontSize: '10px',
-      padding: '3px',
-      border: '0',
-    };
-  
-    return (
-      <form onSubmit={handleSubmit}>
-        <input type='text' value={taskName} onChange={(e) => setTaskName(e.target.value)} />
-        <button type='submit' style={submitButtonStyle}>OK</button>
-      </form>
-    );
   }
 
   function TaskDescriptionEdit({description}) {
@@ -129,7 +89,10 @@ function TaskPanel() {
 
   return (
     <div style={panelStyle}>
-      {isEditName ? <TaskNameEdit currentName={currentTask.name} /> : <TaskName name={currentTask.name} />}
+      {isEditName ?
+        <TaskNameEdit currentName={currentTask.name} setIsEditName={setIsEditName} />
+        : <TaskName name={currentTask.name} setIsEditName={setIsEditName} />
+      }
 
       <h4>Sous tâches</h4>
       <ul>

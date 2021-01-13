@@ -4,12 +4,14 @@ import { TaskContext } from '../../context/TaskState';
 import SubTask from './Subtask';
 import TaskName from './TaskName';
 import TaskNameEdit from './TaskNameEdit';
+import TaskDescription from './TaskDescription';
+import TaskDescriptionEdit from './TaskDescriptionEdit';
 
 function TaskPanel() {
   const [newSubtaskName, setNewSubtaskName] = useState('');
   const [isEditName, setIsEditName] = useState(false);
   const [isEditDescription, setIsEditDescription] = useState(false);
-  const { getCurrentTask, currentTask, modifyTaskDescription, addSubtask } = useContext(TaskContext);
+  const { getCurrentTask, currentTask, addSubtask } = useContext(TaskContext);
   const { id } = useParams();
 
   useEffect(() => {
@@ -27,15 +29,6 @@ function TaskPanel() {
     borderRadius: '8px',
   }
 
-  const editButtonStyle = {
-    cursor: 'pointer',
-    backgroundColor: 'whitesmoke',
-    color: 'black',
-    fontSize: '10px',
-    padding: '3px',
-    border: '0',
-  };
-
   const addNewSubtask = (e) => {
     e.preventDefault();
 
@@ -46,45 +39,6 @@ function TaskPanel() {
       completed: false,
     };
     addSubtask(newSubtask);
-  }
-
-  const TaskDescription = ({ description }) => {
-    return (
-      <div>
-        {description &&
-          description.split("\n").map((infos, key) => {
-            return <p key={key}>{infos}</p>;
-          })
-        }
-        <button onClick={() => setIsEditDescription(true)} style={editButtonStyle}>edit</button>
-      </div>
-    )
-  }
-
-  function TaskDescriptionEdit({description}) {
-    const [taskDescription, setTaskDescription] = useState(description);
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();;
-      modifyTaskDescription(currentTask.id, taskDescription);
-      setIsEditDescription(false);
-    }
-  
-    const submitButtonStyle = {
-      cursor: 'pointer',
-      backgroundColor: '#4BA419',
-      color: 'white',
-      fontSize: '10px',
-      padding: '3px',
-      border: '0',
-    };
-  
-    return (
-      <form onSubmit={handleSubmit}>
-        <textarea cols={70} rows={15} value={taskDescription} onChange={(e) => setTaskDescription(e.target.value)} />
-        <button type='submit' style={submitButtonStyle}>OK</button>
-      </form>
-    );
   }
 
   return (
@@ -106,7 +60,10 @@ function TaskPanel() {
       </form>
 
       <h4>Informations complémentaires</h4>
-      {isEditDescription ? <TaskDescriptionEdit description={description} /> : <TaskDescription description={description} />}
+      {isEditDescription ?
+        <TaskDescriptionEdit description={description} setIsEditDescription={setIsEditDescription}/> 
+        : <TaskDescription description={description} setIsEditDescription={setIsEditDescription} />
+      }
     </div>
   );
 }

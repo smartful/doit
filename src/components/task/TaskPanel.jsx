@@ -6,7 +6,8 @@ import SubTask from './Subtask';
 function TaskPanel() {
   const [newSubtaskName, setNewSubtaskName] = useState('');
   const [isEditName, setIsEditName] = useState(false);
-  const { getCurrentTask, currentTask, modifyTaskName, addSubtask } = useContext(TaskContext);
+  const [isEditDescription, setIsEditDescription] = useState(false);
+  const { getCurrentTask, currentTask, modifyTaskName, modifyTaskDescription, addSubtask } = useContext(TaskContext);
   const { id } = useParams();
 
   useEffect(() => {
@@ -23,6 +24,15 @@ function TaskPanel() {
     border: '6px solid black',
     borderRadius: '8px',
   }
+
+  const editButtonStyle = {
+    cursor: 'pointer',
+    backgroundColor: 'whitesmoke',
+    color: 'black',
+    fontSize: '10px',
+    padding: '3px',
+    border: '0',
+  };
 
   const addNewSubtask = (e) => {
     e.preventDefault();
@@ -44,21 +54,25 @@ function TaskPanel() {
       justifyContent: 'space-around',
     };
 
-    const editButtonStyle = {
-      cursor: 'pointer',
-      backgroundColor: 'whitesmoke',
-      color: 'black',
-      fontSize: '10px',
-      padding: '3px',
-      border: '0',
-    };
-
     return (
       <div style={labelStyle}>
         {name}
         <button onClick={() => setIsEditName(true)} style={editButtonStyle}>edit</button>
       </div>
     );
+  }
+
+  const TaskDescription = ({ description }) => {
+    return (
+      <div>
+        {description &&
+          description.split("\n").map((infos, key) => {
+            return <p key={key}>{infos}</p>;
+          })
+        }
+        <button onClick={() => setIsEditDescription(true)} style={editButtonStyle}>edit</button>
+      </div>
+    )
   }
 
   function TaskNameEdit({currentName}) {
@@ -87,6 +101,32 @@ function TaskPanel() {
     );
   }
 
+  function TaskDescriptionEdit({description}) {
+    const [taskDescription, setTaskDescription] = useState(description);
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();;
+      modifyTaskDescription(currentTask.id, taskDescription);
+      setIsEditDescription(false);
+    }
+  
+    const submitButtonStyle = {
+      cursor: 'pointer',
+      backgroundColor: '#4BA419',
+      color: 'white',
+      fontSize: '10px',
+      padding: '3px',
+      border: '0',
+    };
+  
+    return (
+      <form onSubmit={handleSubmit}>
+        <textarea cols={70} rows={15} value={taskDescription} onChange={(e) => setTaskDescription(e.target.value)} />
+        <button type='submit' style={submitButtonStyle}>OK</button>
+      </form>
+    );
+  }
+
   return (
     <div style={panelStyle}>
       {isEditName ? <TaskNameEdit currentName={currentTask.name} /> : <TaskName name={currentTask.name} />}
@@ -103,11 +143,7 @@ function TaskPanel() {
       </form>
 
       <h4>Informations complémentaires</h4>
-      {description &&
-        description.split("\n").map((infos, key) => {
-          return <p key={key}>{infos}</p>;
-        })
-      }
+      {isEditDescription ? <TaskDescriptionEdit description={description} /> : <TaskDescription description={description} />}
     </div>
   );
 }

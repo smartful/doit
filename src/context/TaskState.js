@@ -84,6 +84,13 @@ export const TaskProvider = ({ children }) => {
     });
   }
 
+  const modifyTaskDescription = (identifiant, newInfos) => {
+    dispatch({
+      type: 'MODIFY_TASK_DESCRIPTION',
+      payload: {identifiant, newInfos},
+    });
+  }
+
   const addSubtask = (subtask) => {
     dispatch({
       type: 'ADD_SUBTASK',
@@ -113,6 +120,7 @@ export const TaskProvider = ({ children }) => {
       currentTask: state.currentTask,
       getCurrentTask,
       modifyTaskName,
+      modifyTaskDescription,
       addSubtask,
       toogleSubtask,
       eraseSubtask,

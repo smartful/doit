@@ -1,7 +1,5 @@
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import Home from './components/Home';
 import TaskList from './components/task/TaskList';
-import Profile from './components/Profile';
 import TaskPanel from './components/task/TaskPanel';
 import './App.css';
 
@@ -11,23 +9,15 @@ function App() {
       <BrowserRouter>
         <nav>
           <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/tasks">Tasks</Link></li>
-            <li><Link to="/profile">Profiles</Link></li>
+            <li><Link to="/">Tasks</Link></li>
           </ul>
         </nav>
         <Switch>
           <Route exact path='/'>
-            <Home />
-          </Route>
-          <Route path='/tasks'>
             <TaskList />
           </Route>
           <Route path='/task/:id'>
             <TaskPanel />
-          </Route>
-          <Route path='/profile'>
-            <Profile />
           </Route>
         </Switch>
       </BrowserRouter>

@@ -2,52 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import TaskReducer from './TaskReducer';
 
 const initialState = {
-  tasks: [
-    {
-      id: 1,
-      name: 'Faire mes devoirs',
-      description: 'Exos 5 à 9 de la page 46 pour la trigo\nRédactions sur l\'impact des différents styles narratifs\nlol ;-p',
-      subtasks: [
-        {
-          id: 1,
-          task_id: 1,
-          name: 'Exos de trigo',
-          completed: false,
-        },
-        {
-          id: 2,
-          task_id: 1,
-          name: 'Rédaction en français',
-          completed: false,
-        },
-        {
-          id: 3,
-          task_id: 1,
-          name: 'Dessiner le boule de la prod d\'espagnol',
-          completed: true,
-        },
-      ]
-    },
-    {
-      id: 2,
-      name: 'Ranger ma chambre',
-      description: 'C\'est le dawa !!!\nIl faut ranger quoi !',
-      subtasks: [
-        {
-          id: 4,
-          task_id: 2,
-          name: 'Ranger mes BD',
-          completed: true,
-        },
-        {
-          id: 5,
-          task_id: 2,
-          name: 'Ranger mes DVD',
-          completed: false,
-        },
-      ]
-    },
-  ],
+  tasks: [],
   currentTask: {},
 };
 

@@ -1,8 +1,11 @@
 import React, { createContext, useReducer } from 'react';
 import TaskReducer from './TaskReducer';
 
+// const test = JSON.parse(localStorage.getItem('tasks'));
+// console.log(test);
+
 const initialState = {
-  tasks: [],
+  tasks: JSON.parse(localStorage.getItem('tasks')) ?? [],
   currentTask: {},
 };
 

@@ -5,9 +5,7 @@ Application de productivité permettant de gérer ses tâches.
 ## Features
 
 - Sous-tâches
-- Gestion du temps
 - Bloc d'informations complémentaires aux tâches
-- Gestion des contacts
 
 ## Available Scripts
 

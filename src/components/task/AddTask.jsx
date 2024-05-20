@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
-import { TaskContext } from '../../context/TaskState';
+import React, { useState, useContext } from "react";
+import { TaskContext } from "../../context/TaskState.jsx";
 
 function AddTask() {
   const [isVisible, setIsVisible] = useState(false);
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const { addTask } = useContext(TaskContext);
 
   const handleSubmit = (e) => {
@@ -16,7 +16,7 @@ function AddTask() {
     };
     addTask(newTask);
     setIsVisible(false);
-  }
+  };
 
   const AddButton = (
     <button onClick={() => setIsVisible(true)}>Ajouter une tâche</button>
@@ -26,15 +26,17 @@ function AddTask() {
     <div>
       <h1>Ajouter une tâche</h1>
       <form onSubmit={handleSubmit}>
-        <input type='text' value={name} onChange={(e) => setName(e.target.value)} />
-        <button type='submit'>Valider</button>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <button type="submit">Valider</button>
       </form>
     </div>
   );
 
-  return (
-    isVisible ? AddForm : AddButton
-  );
+  return isVisible ? AddForm : AddButton;
 }
 
 export default AddTask;

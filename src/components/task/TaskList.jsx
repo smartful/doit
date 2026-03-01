@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { TaskContext } from "../../context/TaskState.jsx";
 import Task from "./Task";
 import AddTask from "./AddTask";

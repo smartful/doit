@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link } from "react-router";
 import { TaskContext } from "../../context/TaskState.jsx";
 
 function Task({ id, name }) {

@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { useParams } from "react-router";
 import { TaskContext } from "../../context/TaskState.jsx";
 import SubTask from "./Subtask";
 import TaskName from "./TaskName";

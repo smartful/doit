@@ -1,7 +1,7 @@
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import TaskList from './components/task/TaskList';
-import TaskPanel from './components/task/TaskPanel';
-import './App.css';
+import { BrowserRouter, Routes, Route, Link } from "react-router";
+import TaskList from "./components/task/TaskList";
+import TaskPanel from "./components/task/TaskPanel";
+import "./App.css";
 
 function App() {
   return (
@@ -9,17 +9,15 @@ function App() {
       <BrowserRouter>
         <nav>
           <ul>
-            <li><Link to="/">Tasks</Link></li>
+            <li>
+              <Link to="/">Tasks</Link>
+            </li>
           </ul>
         </nav>
-        <Switch>
-          <Route exact path='/'>
-            <TaskList />
-          </Route>
-          <Route path='/task/:id'>
-            <TaskPanel />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route exact path="/" element={<TaskList />} />
+          <Route path="/task/:id" element={<TaskPanel />} />
+        </Routes>
       </BrowserRouter>
     </div>
   );

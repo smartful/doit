@@ -1,86 +1,159 @@
+const persistTasks = (tasks) => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+
 const TaskReducer = (state, action) => {
-  const tasks = [...state.tasks];
-
-  switch(action.type) {
-    case 'GET_CURRENT_TASK':
+  switch (action.type) {
+    case "GET_CURRENT_TASK":
       return {
         ...state,
-        currentTask: state.tasks.find(task => task.id === parseInt(action.payload)),
+        currentTask: state.tasks.find(
+          (task) => task.id === parseInt(action.payload)
+        ),
       };
-    case 'ADD_TASK':
-      localStorage.setItem('tasks', JSON.stringify([...state.tasks, action.payload]));
+
+    case "ADD_TASK": {
+      const updatedTasks = [...state.tasks, action.payload];
+      persistTasks(updatedTasks);
       return {
         ...state,
-        tasks: [...state.tasks, action.payload],
+        tasks: updatedTasks,
       };
-    case 'DELETE_TASK':
-      localStorage.removeItem('tasks');
-      localStorage.setItem('tasks', JSON.stringify(state.tasks.filter(task => task.id !== action.payload)));
+    }
+
+    case "DELETE_TASK": {
+      const updatedTasks = state.tasks.filter(
+        (task) => task.id !== action.payload
+      );
+      persistTasks(updatedTasks);
       return {
         ...state,
-        tasks: state.tasks.filter(task => task.id !== action.payload),
+        tasks: updatedTasks,
       };
-    case 'MODIFY_TASK_NAME':
-      const {id, newName} = action.payload;
-      let taskIdx = tasks.findIndex(task => task.id === parseInt(id));
-      tasks[taskIdx].name = newName;
+    }
 
-      localStorage.removeItem('tasks');
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+    case "MODIFY_TASK_NAME": {
+      const { id, newName } = action.payload;
+      const taskId = parseInt(id);
+      const updatedTasks = state.tasks.map((task) =>
+        task.id === taskId ? { ...task, name: newName } : task
+      );
+      persistTasks(updatedTasks);
       return {
         ...state,
-        tasks: tasks,
-      }
-    case 'MODIFY_TASK_DESCRIPTION':
-      const {identifiant, newInfos} = action.payload;
-      let taskId = tasks.findIndex(task => task.id === parseInt(identifiant));
-      tasks[taskId].description = newInfos;
+        tasks: updatedTasks,
+        currentTask:
+          state.currentTask?.id === taskId
+            ? { ...state.currentTask, name: newName }
+            : state.currentTask,
+      };
+    }
 
-      localStorage.removeItem('tasks');
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+    case "MODIFY_TASK_DESCRIPTION": {
+      const { identifiant, newInfos } = action.payload;
+      const taskId = parseInt(identifiant);
+      const updatedTasks = state.tasks.map((task) =>
+        task.id === taskId ? { ...task, description: newInfos } : task
+      );
+      persistTasks(updatedTasks);
       return {
         ...state,
-        tasks: tasks,
-      }
-    case 'ADD_SUBTASK':
-      let subtask = action.payload;
-      let taskIndex = tasks.findIndex(task => task.id === parseInt(subtask.task_id));
-      tasks[taskIndex].subtasks.push(subtask);
+        tasks: updatedTasks,
+        currentTask:
+          state.currentTask?.id === taskId
+            ? { ...state.currentTask, description: newInfos }
+            : state.currentTask,
+      };
+    }
 
-      localStorage.removeItem('tasks');
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+    case "ADD_SUBTASK": {
+      const subtask = action.payload;
+      const taskId = parseInt(subtask.task_id);
+      const updatedTasks = state.tasks.map((task) =>
+        task.id === taskId
+          ? { ...task, subtasks: [...(task.subtasks ?? []), subtask] }
+          : task
+      );
+      persistTasks(updatedTasks);
       return {
         ...state,
-        tasks: tasks,
-      }
-    case 'TOOGLE_SUBTASK':
-      let currentSubtask = action.payload;
-      currentSubtask.completed = !currentSubtask.completed;
-      let currentTaskIndex = tasks.findIndex(task => task.id === parseInt(currentSubtask.task_id));
-      let currentSubtaskIndex = tasks[currentTaskIndex].subtasks.findIndex(element => element.id === currentSubtask.id);
-      tasks[currentTaskIndex].subtasks[currentSubtaskIndex] = currentSubtask;
+        tasks: updatedTasks,
+        currentTask:
+          state.currentTask?.id === taskId
+            ? {
+                ...state.currentTask,
+                subtasks: [...(state.currentTask.subtasks ?? []), subtask],
+              }
+            : state.currentTask,
+      };
+    }
 
-      localStorage.removeItem('tasks');
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+    case "TOOGLE_SUBTASK": {
+      const currentSubtask = action.payload;
+      const taskId = parseInt(currentSubtask.task_id);
+      const toggledSubtask = {
+        ...currentSubtask,
+        completed: !currentSubtask.completed,
+      };
+
+      const updatedTasks = state.tasks.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              subtasks: (task.subtasks ?? []).map((subtask) =>
+                subtask.id === toggledSubtask.id ? toggledSubtask : subtask
+              ),
+            }
+          : task
+      );
+      persistTasks(updatedTasks);
       return {
         ...state,
-        tasks: tasks,
-      }
-    case 'DELETE_SUBTASK':
-      let subtaskToErase = action.payload;
-      let associatedTaskIndex = tasks.findIndex(task => task.id === parseInt(subtaskToErase.task_id));
-      let newSubtasks = tasks[associatedTaskIndex].subtasks.filter(subtask => subtask.id !== subtaskToErase.id);
-      tasks[associatedTaskIndex].subtasks = newSubtasks;
+        tasks: updatedTasks,
+        currentTask:
+          state.currentTask?.id === taskId
+            ? {
+                ...state.currentTask,
+                subtasks: (state.currentTask.subtasks ?? []).map((subtask) =>
+                  subtask.id === toggledSubtask.id ? toggledSubtask : subtask
+                ),
+              }
+            : state.currentTask,
+      };
+    }
 
-      localStorage.removeItem('tasks');
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+    case "DELETE_SUBTASK": {
+      const subtaskToErase = action.payload;
+      const taskId = parseInt(subtaskToErase.task_id);
+      const updatedTasks = state.tasks.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              subtasks: (task.subtasks ?? []).filter(
+                (subtask) => subtask.id !== subtaskToErase.id
+              ),
+            }
+          : task
+      );
+      persistTasks(updatedTasks);
       return {
         ...state,
-        tasks: tasks,
-      }
+        tasks: updatedTasks,
+        currentTask:
+          state.currentTask?.id === taskId
+            ? {
+                ...state.currentTask,
+                subtasks: (state.currentTask.subtasks ?? []).filter(
+                  (subtask) => subtask.id !== subtaskToErase.id
+                ),
+              }
+            : state.currentTask,
+      };
+    }
+
     default:
       return state;
   }
-}
+};
 
 export default TaskReducer;
